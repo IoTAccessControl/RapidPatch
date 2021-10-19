@@ -62,4 +62,9 @@ QEMU Event 0 -> cycle: 0 0
 
 > Notice: As hardware breakpoint is not supported in STM32 QEMU, shell commands other than `run 5` might not function correctly.
 
-Have fun!
+The "run 5" command will invoke the vulnerable function at,   
+https://github.com/IoTAccessControl/RapidPatch-Runtime-AE/blob/448fe8fdac6fa14b600257ddc85656af6f56e3a3/hotpatch/src/fixed_patch_points.c#L306  
+Then a eBPF patch is loaded by the fixed patch point put at,   
+https://github.com/IoTAccessControl/RapidPatch-Runtime-AE/blob/448fe8fdac6fa14b600257ddc85656af6f56e3a3/hotpatch/src/fixed_patch_points.c#L278  
+
+If you have real devices, the patches can be added via hardware brakpoints. 
