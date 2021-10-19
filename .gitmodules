@@ -1,9 +1,9 @@
-[submodule "RapidPatch-Runtime"]
-	path = RapidPatch-Runtime
-	url = git@github.com:IoTAccessControl/RapidPatch-Runtime-AE.git
-[submodule "RapidPatch-VulDevices"]
-	path = RapidPatch-VulDevices
-	url = git@github.com:IoTAccessControl/RapidPatch-VulDevices-AE.git
-[submodule "RapidPatch-Toolchain"]
-	path = RapidPatch-Toolchain
-	url = git@github.com:IoTAccessControl/RapidPatch-ToolChain.git
+[submodule "VulDevices"]
+	path = VulDevices
+	url = https://github.com/IoTAccessControl/RapidPatch-VulDevices-AE.git
+[submodule "Runtime"]
+	path = Runtime
+	url = https://github.com/IoTAccessControl/RapidPatch-Runtime-AE.git
+[submodule "Toolchain"]
+	path = Toolchain
+	url = https://github.com/IoTAccessControl/RapidPatch-ToolChain.git
