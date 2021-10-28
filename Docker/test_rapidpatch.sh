@@ -1,5 +1,4 @@
-cd /work/RapidPatch-VulDevices/qemu-stm32-p103/ && \
-    rm -r build && \
+cd /work/VulDevices/qemu-stm32-p103/ && \
     mkdir build && \
     cd build && \
     cmake .. && \

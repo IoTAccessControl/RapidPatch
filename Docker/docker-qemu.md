@@ -37,30 +37,70 @@ run 1: Test FPB patch trigger
 run 2: Clear all bpkt and patch
 run 3: Run eva test
 run 4: Start patch service
-run 5: Start testing fixed patch point
+run 5: Invoke the vulnerable function for CVE-2020-10062
+run 6: Load patch at the fixed patch point for CVE-2020-10062
 ```
 
-Then, just type as follows into the shell: (~1 sec)
+Then, just type as follows into the shell to invoke the unpatched vulnerable function: (~1 sec)
 
 ```
 run 5
 ```
 
-Again, if you see the following hints, it means that you have run the fixed patch point demo successfully. The malicious inputs to the vulnerable function of CVE-2020-10062 have been blocked by the fixed patch point we intrumented.
+The following log indicate that the vulnerable function is not patched.
 
 ```
-run cmd: 5 {Start testing fixed patch point}
-init_patch_sys: 1
+run cmd: 5 {Invoke the vulnerable function for CVE-2020-10062}
+addr ground-truth bug:0x08002915 test:0x080029b1 
+Patch instruction num 5295
+try to get patch at: 0x0800291c
+Do not find Patch here
+dummy MQTT packet length:0xffffffff 
+Decoded MQTT packet length is -1
+The buggy function is still vulnerable!
+```
+
+Now you can patch the vulnerable function with:
+
+```
+run 6
+```
+
+If you see the following hints, it means that you have installed and activated a patch at the fixed patch point for this vulnerable function.
+
+```
+run cmd: 6 {Load patch at the fixed patch point for CVE-2020-10062}
 start to load patch: 2
 load fixed patch zephyr_cve_2020_10062 dummy_MQTT_packet_length_decode_patch success!
-addr ground-truth bug:0x08002a25 test:0x08002ac1 
-try to get patch at: 0x08002a2c
+```
+
+Now, to check if the function has been patched, input:
+
+```
+run 5
+```
+
+Again, if you see the following hints, it means that the malicious inputs to the vulnerable function of CVE-2020-10062 have been blocked by the fixed patch point we intrumented.
+
+```
+run cmd: 5 {Invoke the vulnerable function for CVE-2020-10062}
+addr ground-truth bug:0x08002915 test:0x080029b1 
+Patch instruction num 60
+try to get patch at: 0x0800291c
+ret:0xffffffea
+op code:0x00000001 
+FILTER_DROP
 Decoded MQTT packet length is 0
-Bug function return 0 is fixed!
-QEMU Event 0 -> cycle: 0 0
+The buggy function is fixed!
 ```
 
 > Notice: As hardware breakpoint is not supported in STM32 QEMU, shell commands other than `run 5` might not function correctly.
+
+To remove all the patch installed, input:
+
+```
+run 2
+```
 
 The "run 5" command will invoke the vulnerable function at,   
 https://github.com/IoTAccessControl/RapidPatch-Runtime-AE/blob/448fe8fdac6fa14b600257ddc85656af6f56e3a3/hotpatch/src/fixed_patch_points.c#L306  
