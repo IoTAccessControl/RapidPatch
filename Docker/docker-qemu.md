@@ -17,7 +17,7 @@ First, download the docker image and run. (~10 min, depends on your network stat
 > Docker version: >19.x
 
 ```bash
-sudo docker run -it --rm cbackyx/rapidpatch-ae:v0 /bin/bash
+sudo docker run -it --rm cbackyx/rapidpatch-ae:v1 /bin/bash
 ```
 
 Now we have entered the docker bash. Make sure that you are under the folder `/work`. Then, type: (~10 sec)
