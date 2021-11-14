@@ -17,7 +17,7 @@ First, download the docker image and run. (~10 min, depends on your network stat
 > Docker version: >19.x
 
 ```bash
-sudo docker run -it --rm cbackyx/rapidpatch-ae:v1 /bin/bash
+sudo docker run -it --rm cbackyx/rapidpatch-ae:v2 /bin/bash
 ```
 
 > Note that you can also choose to build the docker image on your own with the Dockerfile we provide. The Dockerfile will pull the code from our github repo. The github repo code function exactly the same as the code we have included in our prebuilt docker image. (The only difference is that we move `test_rapidpatch.sh` to the `/work/` dir for ease of test.)
