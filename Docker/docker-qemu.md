@@ -43,7 +43,7 @@ run 3: Run eva test
 run 4: Start patch service
 run 5: Invoke the vulnerable function for CVE-2020-10062
 run 6: Load patch at the fixed patch point for CVE-2020-10062
-run 7: Invoke the vulnerable function for CVE-2020-17445
+run 7: Invoke the vulnerable function for CVE-2020-17445 (Unbounded loop test)
 ```
 
 Then, just type as follows into the shell to invoke the unpatched vulnerable function: (~1 sec)
@@ -131,7 +131,7 @@ Built target qemu
 
 The patch code for CVE-2020-17445 is as follows. It simulate the loop in the original vulnerable function `pico_ipv6_process_destopt` to check if the input data would cause an infinite loop.
 
-```
+```C
 #include "ebpf_helper.h"
 
 // PACKED_STRUCT_DEF pico_ipv6_exthdr {
