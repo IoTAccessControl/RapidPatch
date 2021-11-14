@@ -48,9 +48,12 @@ RUN cd qemu_stm32-stm32_v0.1.3/ && \
 ENV PATH "/work/gcc-arm-none-eabi-9-2020-q2-update/bin:$PATH"
 ENV PATH "/work/qemu_stm32-stm32_v0.1.3/arm-softmmu:$PATH"
 
-ADD . /work
+# ADD . /work
 
-# RUN git clone https://github.com/IoTAccessControl/RapidPatch.git --recursive && \
+RUN cd /work && git clone https://github.com/IoTAccessControl/RapidPatch.git --recursive
+
+RUN cp /work/RapidPatch/Docker/test_rapidpatch.sh /work/
+
 # RUN cd /work/VulDevices/qemu-stm32-p103/ &&\
 #     mkdir build && \
 #     cd build && \

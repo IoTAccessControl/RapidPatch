@@ -103,6 +103,15 @@ The buggy function is fixed!
 
 > Nevertheless, the fixed patch point approach is still hardware-independent.
 
+The "run 5" command will invoke the vulnerable function at,   
+https://github.com/IoTAccessControl/RapidPatch-Runtime-AE/blob/448fe8fdac6fa14b600257ddc85656af6f56e3a3/hotpatch/src/fixed_patch_points.c#L306  
+Then a eBPF patch is loaded by the fixed patch point put at,   
+https://github.com/IoTAccessControl/RapidPatch-Runtime-AE/blob/448fe8fdac6fa14b600257ddc85656af6f56e3a3/hotpatch/src/fixed_patch_points.c#L278  
+
+If you have real devices, the patches can be added via hardware brakpoints. 
+
+### UPDATE: November 14, 2021 
+
 We also add a bug recovery example (CVE-2020-17445 reported in AMNESIA33) to demonstrate the need of unbounded loop in patch code and demonstrate the loop check we do. In detail, we port the vulnerable function, `pico_ipv6_process_destopt`, of PicoTCP stack. 
 
 You can try to invoke the ported buggy function with
@@ -195,10 +204,3 @@ To remove all the patch installed, input:
 ```
 run 2
 ```
-
-The "run 5" command will invoke the vulnerable function at,   
-https://github.com/IoTAccessControl/RapidPatch-Runtime-AE/blob/448fe8fdac6fa14b600257ddc85656af6f56e3a3/hotpatch/src/fixed_patch_points.c#L306  
-Then a eBPF patch is loaded by the fixed patch point put at,   
-https://github.com/IoTAccessControl/RapidPatch-Runtime-AE/blob/448fe8fdac6fa14b600257ddc85656af6f56e3a3/hotpatch/src/fixed_patch_points.c#L278  
-
-If you have real devices, the patches can be added via hardware brakpoints. 
