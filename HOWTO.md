@@ -55,7 +55,7 @@ int dynamic_patch_dummy_cve2(struct dummy_MQTT_buf_ctx *buf, uint32_t *length)
 
 ```
 
-To trigger the vulnerable function, we construct illegal input as follows. The correct buffer length should be 0. However, without installing the patch, we will get a overflow length value -1. The correct  length for this illegal packet should be 0.
+To trigger the vulnerable function, we construct illegal input as follows. The correct buffer length should be 0. However, without installing the patch, we will get a overflow length value -1. 
 
 ```
 static void call_dummy_buggy_MQTT_function() {
@@ -77,9 +77,7 @@ static void call_dummy_buggy_MQTT_function() {
 }
 ```
 
-
-
-We write an ebpf filter patch to fix this bug:
+Here is the ebpf filter patch for fixing this bug:
 
 ```
 #include "ebpf_helper.h"
@@ -215,7 +213,7 @@ uint64_t filter(stack_frame *frame) {
 }
 ```
 
-When SFI is enable, the loop will end in x800 iterations and it will return FILTER_DROP.
+When SFI is enable, the loop will end in x800 iterations and it will return FILTER_DROP. Without SFI, the patch code will also enter the dead loop.
 
 ```
 
