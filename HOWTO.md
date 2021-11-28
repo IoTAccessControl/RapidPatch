@@ -6,7 +6,7 @@ Here we use the STM32F407 devices as an example to show how to run RapidPatch in
 
 ![STM32F407 Device](STM32F407.PNG)
 
-Here we use the Keil Project in VulDevices/Keil-Baremetal-Projs/STM32L475 as an example.  
+Here we use the Keil Project in VulDevices/Keil-Baremetal-Projs/STM32F407 as an example.  
 
 You can use the prebuild firmware IoTPatch.afx in direction VulDevices/Keil-Baremetal-Projs/prebuild/.  
 
