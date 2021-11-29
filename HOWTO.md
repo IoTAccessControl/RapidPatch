@@ -2,13 +2,13 @@ You can follow the steps to run RapidPatch on real device.
 
 # 1. Choose your devices and port the Runtime
 
-Here we use the STM32F407 devices as an example to show how to run RapidPatch in real devices. 
+Here we use the STM32F407 device as an example to show how to run RapidPatch in real devices. 
 
 ![STM32F407 Device](STM32F407.PNG)
 
 Here we use the Keil Project in VulDevices/Keil-Baremetal-Projs/STM32L475 as an example.  
 
-You can use the prebuild firmware IoTPatch.afx in direction VulDevices/Keil-Baremetal-Projs/prebuild/.  
+You can either use the prebuild firmware IoTPatch.afx in directory VulDevices/Keil-Baremetal-Projs/prebuild/ or use the platform-io project in directory VulDevices/PlatformIO/stm32f4xx (using the stm32_f407 env).
 
 # 2. RapidPatch Workflow
 
@@ -304,9 +304,26 @@ dynamic_patch_dummy_cve1                 0x080079c3   Thumb Code    80  dummy_cv
 
 #### Use KProbe (Debug Monitor) to run the Patch.
 
-You can use `trigger + idx` to call a vulnerable function and use `patch idx` to install patch for this function and then, trigger the vulnerable function again.  
+You can use run 1 commend to test if the Debug Monitor works well on your board. It first install the patch (the same to patch 0 command) and then execute the buggy function before/after the patch is active (add hardware breakpoint).
+
+```
+$ run 1
+run cmd: 1 {Test FPB DebugMonitor(KProbe) patch trigger}
+...
+Call buggy func after kprobe patch!
+run test_func: 0x08002699
+debug_monitor_handler_c lr:0x08001f3f pc:0x08002698
+run_ebpf_filter res: 1 0
+filter and return: 0 0x08001f3f 0x08002698
+set_return: 0x08001f3f
+is bug fixed? yes
+```
+
+
 
 Example 1.
+
+You can use `trigger + idx` to call a vulnerable function and use `patch idx` to install patch for this function and then trigger the vulnerable function again.  
 
 ```
 // before installing the patch
@@ -360,25 +377,19 @@ Exit loop. The return code of the buggy function is -1
 
 1. Test if the FPB flash patch works properly on this device
 
-   We have provide a sample test to check if the FPB flash patch can work properly on each board. You can trigger in by `run 2`.
-
-   Unfortunately, the FPB flash patch works incorrectly on my STM32F407 board and lead to hardware fault exception.
-
-   Here is the correct results on STM32F429 and STM32L475,
 
 ```
-// hotpatch\src\cortex-m4_fbp.c:1081 test_fpb_flash_patch
-$ run 2
-run cmd: 2 {Test FPB Flash Patch.}
-test_debug_fpb_patch
-Before add FPB Flash Patch.
-enter RawBuggyFunc
-exit RawBuggyFunc
-Setup FPB Flash Patch.
-buggy_addr: 0x08003f54 fixed_addr: 0x08002094
-ADDR: 0x20012d48 excepted value: 0xb89ef7fe
-remap: 0x20012d40 inst addr: 0xb89ef7fe
-After FPB Flash Patch.
+// lib\hotpatch\src\cortex-m4_fbp.c:1097 trigger_fpb_patch
+$ run 0
+run cmd: 0 {Test FPB patch trigger}
+test_fpb_patch
+trigger_fpb_patch
+Call buggy func before fpb patch!
+run FixedBuggyFunc
+buggy_addr: 0x08001f10 fixed_addr: 0x08001f04
+ADDR: 0x2000123c excepted value: 0xbff8f7ff
+remap: 0x20001220 inst addr: 0xbff8f7ff
+Call buggy func after fpb patch!
 run FixedBuggyFunc
 ```
 
