@@ -426,7 +426,28 @@ Exit loop. The return code of the buggy function is -1
 
 ### Deploy patch remotely via Usart
 
-TODO.
+You can use the python serial tool to upload the patch to the device.
+
+```
+# python3 main.py gen test-files/patches/test_cve1.c test-files/bin/test_cve1.bin
+# python3 main.py verify test-files/bin/test_cve1.bin
+# python main.py monitor COM15
+
+IoTPatch Cli Usage: run [idx] | trigger [cve] | patch [cve] | vm [vid]
+run 0: Test FPB patch trigger
+run 1: Test FPB DebugMonitor(KProbe) patch trigger
+run 2: Clear all bpkt and patch
+run 3: Run eva test
+run 4: Start patch service
+run 5: Start testing fixed patch point
+Usart install patch:
+install test-files/bin/test_cve1.json
+install test-files/bin/test_cve2.json
+
+$ install test-files/bin/test_cve1.json
+```
+
+
 
 # 3. SFI implementation
 
