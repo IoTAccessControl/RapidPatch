@@ -422,12 +422,9 @@ leave_fpb_bpkt: 0x08007010
 Exit loop. The return code of the buggy function is -1
 ```
 
-
-
 ### Deploy patch remotely via Usart
-
-You can use the python serial tool to upload the patch to the device.
-
+You can use the python serial tool to upload the patch to the device.  
+In our patch deploy serial tool, you can use `install test-files/bin/test_cve1.json` to install a patch via serial port.  
 ```
 # python3 main.py gen test-files/patches/test_cve1.c test-files/bin/test_cve1.bin
 # python3 main.py verify test-files/bin/test_cve1.bin
@@ -445,9 +442,27 @@ install test-files/bin/test_cve1.json
 install test-files/bin/test_cve2.json
 
 $ install test-files/bin/test_cve1.json
+hash:5210 type: 2 size:584 0x080009d0 t:1184
+patch settings: 33556480
+//...
+New Patch Installing Success!
+
+// trigger patch
+$ trigger 1
+trigger 1
+run dynamic_patch_dummy_cve1 func at addr:0x080009d1
+debug_monitor_handler_c lr:0x0800060b pc:0x080009d0
+run_ebpf_filter res: 1 4294967274
+filter and return: 4294967274 0x0800060b 0x080009d0
+set_return: 0x0800060b
+Decoded MQTT packet length is 0
+The buggy function is fixed!
 ```
 
-
+Note that, you need to execute patch generation to update the patch installing address everytime after modify the firmware code. 
+```
+# python3 main.py gen test-files/patches/test_cve1.c test-files/bin/test_cve1.bin
+```
 
 # 3. SFI implementation
 
