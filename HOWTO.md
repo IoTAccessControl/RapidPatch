@@ -482,6 +482,7 @@ bool iters_check(int tick) {
 	if (tick > MAX_ITERS) {
 		return false;
 	}
+    return true;
 }
 ```
 
