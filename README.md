@@ -1,17 +1,19 @@
 This is the code for paper: [RapidPatch: Firmware Hotpatching for Real-Time Embedded Devices](https://www.usenix.org/conference/usenixsecurity22/presentation/he-yi).   
 
+[Link to the code used in our paper](https://github.com/IoTAccessControl/RapidPatch/tree/ArtifactEvaluation).
+
 ```
 @inproceedings {rapidpatch,
-author = {Yi He and Zhenhua Zou and Kun Sun and Zhuotao Liu and Ke Xu and Qian Wang and Chao Shen and Zhi Wang and Qi Li},
-title = {{RapidPatch}: Firmware Hotpatching for {Real-Time} Embedded Devices},
-booktitle = {31st USENIX Security Symposium (USENIX Security 22)},
-year = {2022},
-isbn = {978-1-939133-31-1},
-address = {Boston, MA},
-pages = {2225--2242},
-url = {https://www.usenix.org/conference/usenixsecurity22/presentation/he-yi},
-publisher = {USENIX Association},
-month = aug
+  author = {Yi He and Zhenhua Zou and Kun Sun and Zhuotao Liu and Ke Xu and Qian Wang and Chao Shen and Zhi Wang and Qi Li},
+  title = {{RapidPatch}: Firmware Hotpatching for {Real-Time} Embedded Devices},
+  booktitle = {31st USENIX Security Symposium (USENIX Security 22)},
+  year = {2022},
+  isbn = {978-1-939133-31-1},
+  address = {Boston, MA},
+  pages = {2225--2242},
+  url = {https://www.usenix.org/conference/usenixsecurity22/presentation/he-yi},
+  publisher = {USENIX Association},
+  month = aug
 }
 ```
 
